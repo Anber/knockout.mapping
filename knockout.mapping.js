@@ -310,7 +310,7 @@ ko.exportProperty = function (owner, publicName, object) {
 				case "function":
 					if (hasUpdateCallback()) {
 						if (ko.isWriteableObservable(rootObject)) {
-							rootObject(updateCallback(rootObject));
+							rootObject(ko.utils.unwrapObservable(updateCallback(rootObject)));
 							mappedRootObject = rootObject;
 						} else {
 							mappedRootObject = updateCallback(rootObject);
@@ -322,7 +322,7 @@ ko.exportProperty = function (owner, publicName, object) {
 				default:
 					if (ko.isWriteableObservable(mappedRootObject)) {
 						if (hasUpdateCallback()) {
-							mappedRootObject(updateCallback(mappedRootObject));
+							mappedRootObject(ko.utils.unwrapObservable(updateCallback(mappedRootObject)));
 						} else {
 							mappedRootObject(ko.utils.unwrapObservable(rootObject));
 						}
@@ -334,7 +334,7 @@ ko.exportProperty = function (owner, publicName, object) {
 						}
 
 						if (hasUpdateCallback()) {
-							mappedRootObject(updateCallback(mappedRootObject));
+							mappedRootObject(ko.utils.unwrapObservable(updateCallback(mappedRootObject)));
 						}
 					}
 					break;
